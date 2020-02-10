@@ -28,3 +28,5 @@ Advanced Usage
 
 The command accepts multiple paths, which will be included in the output in the
 order in which they are passed.
+
+The --verbose or -v option triggers verbose mode.

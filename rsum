@@ -9,11 +9,16 @@ set -o pipefail
 
 # Global variables.
 
+declare VERBOSE=false
 declare -a ROOTPATHS=()
 
 function parse_options() {
   while (( "$#" )); do
     case "$1" in
+      -v|--verbose)
+        VERBOSE=true
+        shift
+        ;;
       --) # end argument parsing
         shift
         break
@@ -30,6 +35,11 @@ function parse_options() {
   done
 
   ROOTPATHS+=("$@")
+
+  if [[ "$VERBOSE" = true ]]; then
+    printf 'INFO Rootpaths:\n' >&2
+    printf 'INFO - %s\n' "${ROOTPATHS[@]-(none)}" >&2
+  fi
 }
 
 function main() {
