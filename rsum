@@ -49,12 +49,20 @@ function main() {
     return 0;
   fi
 
+  local cmd=(find . -type f -exec shasum {} +)
+
+  if [[ "$VERBOSE" = true ]]; then
+    printf 'INFO Command: ' >&2
+    printf '%s ' "${cmd[@]}" >&2
+    printf '\n' >&2
+  fi
+
   pwd=$(pwd)
 
   for rootpath in "${ROOTPATHS[@]}"; do
     cd "$rootpath"
 
-    find . -type f -exec shasum {} + | sort -k 2
+    "${cmd[@]}" | sort -k 2
 
     cd "$pwd"
   done
