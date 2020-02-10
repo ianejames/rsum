@@ -1,0 +1,26 @@
+#!/usr/bin/env bash
+
+# This file generates a recursive hash of a directory.
+
+set -o nounset
+set -o errexit
+set -o pipefail
+# set -o xtrace
+
+# Global variables.
+
+declare ROOTPATH
+
+function parse_options() {
+  ROOTPATH="$1"
+}
+
+function main() {
+  parse_options "$@"
+
+  cd "$ROOTPATH"
+
+  find . -type f -exec shasum {} +
+}
+
+main "$@"
