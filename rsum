@@ -20,7 +20,7 @@ function main() {
 
   cd "$ROOTPATH"
 
-  find . -type f -exec shasum {} +
+  find . -type f -exec shasum {} + | sort -k 2
 }
 
 main "$@"
