@@ -12,6 +12,23 @@ set -o pipefail
 declare -a ROOTPATHS=()
 
 function parse_options() {
+  while (( "$#" )); do
+    case "$1" in
+      --) # end argument parsing
+        shift
+        break
+        ;;
+      -*|--*=) # unsupported flags
+        echo "Error: Unsupported flag $1" >&2
+        exit 1
+        ;;
+      *) # preserve positional arguments
+        ROOTPATHS+=("$1")
+        shift
+        ;;
+    esac
+  done
+
   ROOTPATHS+=("$@")
 }
 
