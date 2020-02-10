@@ -9,18 +9,28 @@ set -o pipefail
 
 # Global variables.
 
-declare ROOTPATH
+declare -a ROOTPATHS=()
 
 function parse_options() {
-  ROOTPATH="$1"
+  ROOTPATHS+=("$@")
 }
 
 function main() {
   parse_options "$@"
 
-  cd "$ROOTPATH"
+  if [ "${#ROOTPATHS[@]}" -eq 0 ]; then
+    return 0;
+  fi
 
-  find . -type f -exec shasum {} + | sort -k 2
+  pwd=$(pwd)
+
+  for rootpath in "${ROOTPATHS[@]}"; do
+    cd "$rootpath"
+
+    find . -type f -exec shasum {} + | sort -k 2
+
+    cd "$pwd"
+  done
 }
 
 main "$@"
