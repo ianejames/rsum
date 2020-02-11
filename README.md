@@ -30,3 +30,6 @@ The command accepts multiple paths, which will be included in the output in the
 order in which they are passed.
 
 The --verbose or -v option triggers verbose mode.
+
+With the --exclude (-e) option you can specify patterns that will be used to
+exclude paths with matching basename.

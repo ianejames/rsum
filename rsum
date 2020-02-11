@@ -9,6 +9,7 @@ set -o pipefail
 
 # Global variables.
 
+declare -a EXCLUDES=()
 declare VERBOSE=false
 declare -a ROOTPATHS=()
 
@@ -18,6 +19,10 @@ function parse_options() {
       -v|--verbose)
         VERBOSE=true
         shift
+        ;;
+      -e|--exclude)
+        EXCLUDES+=("$2")
+        shift 2
         ;;
       --) # end argument parsing
         shift
@@ -37,6 +42,8 @@ function parse_options() {
   ROOTPATHS+=("$@")
 
   if [[ "$VERBOSE" = true ]]; then
+    printf 'INFO Excludes:\n' >&2
+    printf 'INFO - %s\n' "${EXCLUDES[@]-(none)}" >&2
     printf 'INFO Rootpaths:\n' >&2
     printf 'INFO - %s\n' "${ROOTPATHS[@]-(none)}" >&2
   fi
@@ -49,7 +56,15 @@ function main() {
     return 0;
   fi
 
-  local cmd=(find . -type f -exec shasum {} +)
+  local cmd=(find . -type f)
+
+  if [ "${#EXCLUDES[@]}" -ne 0 ]; then
+    for exclude in "${EXCLUDES[@]}"; do
+      cmd+=(\( ! -name "${exclude}" \))
+    done
+  fi
+
+  cmd+=(-exec shasum {} +)
 
   if [[ "$VERBOSE" = true ]]; then
     printf 'INFO Command: ' >&2
