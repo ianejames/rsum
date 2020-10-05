@@ -50,10 +50,10 @@ function parse_options() {
 }
 
 function process() {
-  local paths
-  paths="$@"
+  local path
+  path="$1"
 
-  shasum $paths
+  shasum $path
 }
 
 export -f process
@@ -73,7 +73,7 @@ function main() {
     done
   fi
 
-  cmd+=(-exec bash -c 'process "$@"' bash {} +)
+  cmd+=(-exec bash -c 'process "$@"' bash {} \;)
 
   if [[ "$VERBOSE" = true ]]; then
     printf 'INFO Command: ' >&2
