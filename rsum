@@ -102,7 +102,7 @@ function main() {
   for rootpath in "${ROOTPATHS[@]}"; do
     cd "$rootpath"
 
-    "${cmd[@]}" | sort -k 2
+    "${cmd[@]}" | LC_ALL=C sort -k 2
 
     cd "$pwd"
   done
