@@ -53,7 +53,11 @@ function process() {
   local path
   path="$1"
 
-  shasum $path
+  if [[ -f "$path" ]]; then
+    shasum "$path"
+  elif [[ -d "$path" ]]; then
+    printf 'XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX  %s\n' "$path"
+  fi
 }
 
 export -f process
@@ -65,7 +69,7 @@ function main() {
     return 0;
   fi
 
-  local cmd=(find . -type f)
+  local cmd=(find .)
 
   if [ "${#EXCLUDES[@]}" -ne 0 ]; then
     for exclude in "${EXCLUDES[@]}"; do
