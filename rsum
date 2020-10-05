@@ -54,9 +54,21 @@ function process() {
   path="$1"
 
   if [[ -f "$path" ]]; then
+    if [[ "$VERBOSE" = true ]]; then
+      printf 'INFO Processing file %s\n' "$path" >&2
+    fi
+
     shasum "$path"
   elif [[ -d "$path" ]]; then
+    if [[ "$VERBOSE" = true ]]; then
+      printf 'INFO Processing directory %s\n' "$path" >&2
+    fi
+
     printf 'XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX  %s\n' "$path"
+  else
+    if [[ "$VERBOSE" = true ]]; then
+      printf 'INFO Skipping unknown node %s\n' "$path" >&2
+    fi
   fi
 }
 
