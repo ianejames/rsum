@@ -85,7 +85,7 @@ function main() {
 
   if [ "${#EXCLUDES[@]}" -ne 0 ]; then
     for exclude in "${EXCLUDES[@]}"; do
-      cmd+=(\( ! -name "${exclude}" \))
+      cmd+=(\( -name "${exclude}" -prune \) -or)
     done
   fi
 
