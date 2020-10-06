@@ -33,3 +33,13 @@ The --verbose or -v option triggers verbose mode.
 
 With the --exclude (-e) option you can specify patterns that will be used to
 exclude paths with matching basename.
+
+When processing files from a directory used as a Netatalk share, there are a
+variety of files used by Netatalk for metadata that should not be included in
+the output. See the following:
+
+    http://netatalk.sourceforge.net/wiki/index.php/Special_Files_and_Folders
+
+Use the following flags:
+
+    --exclude .DS_Store --exclude .AppleDouble --exclude .AppleDesktop --exclude .AppleDB
