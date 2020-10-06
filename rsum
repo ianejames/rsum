@@ -9,8 +9,8 @@ set -o pipefail
 
 # Global variables.
 
-declare -a EXCLUDES=()
 declare VERBOSE=false
+declare -a EXCLUDES=()
 declare -a ROOTPATHS=()
 
 function parse_options() {
