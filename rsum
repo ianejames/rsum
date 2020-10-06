@@ -13,6 +13,8 @@ declare VERBOSE=false
 declare -a EXCLUDES=()
 declare -a ROOTPATHS=()
 
+export VERBOSE
+
 function parse_options() {
   while (( "$#" )); do
     case "$1" in
