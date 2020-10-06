@@ -50,8 +50,7 @@ function parse_options() {
 }
 
 function process() {
-  local path
-  path="$1"
+  local path="$1"
 
   if [[ -f "$path" ]]; then
     if [[ "$VERBOSE" = true ]]; then
