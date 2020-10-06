@@ -88,7 +88,7 @@ function main() {
     done
   fi
 
-  cmd+=(-exec bash -c 'process "$@"' bash {} \;)
+  cmd+=(-exec bash -c 'for path do process "$path"; done' bash {} +)
 
   if [[ "$VERBOSE" = true ]]; then
     printf 'INFO Command: ' >&2
